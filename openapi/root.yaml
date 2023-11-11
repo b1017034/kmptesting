@@ -1,0 +1,22 @@
+openapi: "3.0.0"
+info:
+  title: ToDo API
+  version: 1.0.0
+  description: A simple ToDo API
+servers:
+  - url: localhost:8080
+    description: Local Server
+tags:
+  - name: todo
+    description: todo
+paths:
+  /todos:
+    $ref: 'paths/todo.yaml#/todos'
+##  /todo:
+##    $ref: "./paths/todo.yaml#/todo"
+components:
+  schemas:
+    todo:
+      $ref: "./components/todo.yaml#todo"
+    todos:
+      $ref: "./components/todo.yaml#todos"

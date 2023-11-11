@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  description: A simple ToDo API
+  title: ToDo API
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /todos:
+    get:
+      responses:
+        default:
+          description: OK
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/todos'
+          description: OK
+      summary: Get all ToDos
+      tags:
+      - ToDo
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/todo'
+        required: true
+      responses:
+        default:
+          description: error
+        "201":
+          description: Created
+      summary: Create a ToDo
+      tags:
+      - ToDo
+  /todos/{id}:
+    delete:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "204":
+          description: No Content
+      summary: Delete a ToDo by ID
+      tags:
+      - ToDo
+    get:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/todo'
+          description: OK
+        "404":
+          description: Not Found
+      summary: Get a ToDo by ID
+      tags:
+      - ToDo
+    put:
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/todo'
+        required: true
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+      summary: Update a ToDo by ID
+      tags:
+      - ToDo
+components:
+  schemas:
+    todo:
+      example:
+        description: description
+        id: 0
+        title: title
+      properties:
+        id:
+          format: int64
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+      type: object
+    todos:
+      items:
+        $ref: '#/components/schemas/todo'
+      type: array
