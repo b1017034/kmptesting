@@ -3,21 +3,32 @@ description: Prepare Workflow
 runs:
   using: "composite"
   steps:
-    - name: install rbenv
-      shell: bash
-      run: |
-        brew install rbenv
+#    - name: install rbenv
+#      shell: bash
+#      run: |
+#        brew install rbenv
+    - name: Setup Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: $(cat .ruby-version)
+    - name: cache bundle
+      uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
     - name: bundle isntall
       shell: bash
       run: |
         set -ex
-        ruby=$(rbenv root)/versions$(cat .ruby-version)/bin/ruby
-        
-        if [ -e "$ruby" ]; then
-          :
-        else 
-          rbenv install "$(cat .ruby-version)"
-        fi
+#        ruby=$(rbenv root)/versions$(cat .ruby-version)/bin/ruby
+#
+#        if [ -e "$ruby" ]; then
+#          :
+#        else
+#          rbenv install "$(cat .ruby-version)"
+#        fi
         
         gem install bundler:$(grep -A1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | awk '{$1=$1};1')
         bundle install
