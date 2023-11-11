@@ -17,7 +17,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: prepare workflow
-        uses: ./github/actions/prepare_workflow
+        uses: ./.github/actions/prepare_workflow
       - name: exec danger
         run: |
           bundle exec danger
