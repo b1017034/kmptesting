@@ -2,5 +2,6 @@
 
 source "https://rubygems.org"
 
+gem 'activesupport'
+gem 'fastlane'
 gem 'danger'
-gem "fastlane"
