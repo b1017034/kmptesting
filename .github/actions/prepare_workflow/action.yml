@@ -13,7 +13,7 @@ runs:
         set -ex
         ruby=$(rbenv root)/versions$(cat .ruby-version)/bin/ruby
         
-        if [ -e "$ruby" ]; them
+        if [ -e "$ruby" ]; then
           :
         else 
           rbenv install "$(cat .ruby-version)"
