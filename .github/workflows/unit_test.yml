@@ -1,0 +1,22 @@
+name: unit_test
+
+on:
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "test"
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  unit_testing:
+    runs-on: macos-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: prepare workflow
+        uses: ./github/actions/prepare_workflow
+      - name: exec danger
+        run: |
+          bundle exec danger
