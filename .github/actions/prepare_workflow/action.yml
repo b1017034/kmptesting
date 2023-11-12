@@ -6,7 +6,7 @@ runs:
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
     - name: cache bundle
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: vendor/bundle
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
