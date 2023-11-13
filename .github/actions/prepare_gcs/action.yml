@@ -3,9 +3,12 @@ description:  Prepare Google Cloud Service
 runs:
   using: "composite"
   steps:
-  - id: 'auth'
-    name: 'Authenticate to Google Cloud'
+  - name: 'Authenticate to Google Cloud'
     uses: 'google-github-actions/auth@v1'
     with:
       workload_identity_provider: 'principal://iam.googleapis.com/projects/308004819512/locations/global/workloadIdentityPools/githubactions/subject/b1017034/kmptesting'
       service_account: 'githubaction@stellar-polymer-308508.iam.gserviceaccount.com'
+  - name: 'Set up Cloud SDK'
+    uses: 'google-github-actions/setup-gcloud@v1'
+    with:
+      version: '>= 379.0.0'
