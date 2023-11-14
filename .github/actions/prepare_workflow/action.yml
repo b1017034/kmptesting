@@ -12,26 +12,26 @@ runs:
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gems-
-#    # Zipがキャッシュしてあれば取り出す
-#    - name: Cache ios16 iPhone17 Pro
-#      id: cache-simruntime
-#      uses: actions/cache@v3
-#      with:
-#        path: iPhone17Pro_iOS_16.4.zip
-#        key: ${{ runner.os }}-iPhone17Pro
-#    - name: Unzip simruntime
-#      if: steps.cache-simruntime.outputs.cache-hit == 'true'
-#      shell: bash
-#      run: |
-#        sudo mkdir -p ${RUNTIMES_DIR}
-#        sudo unzip iPhone17Pro_iOS_16.4.zip -d ${RUNTIMES_DIR}
-#    # xcode-installを用いて指定のiOSをインストール
-#    - name: Install simruntime
-#      shell: bash
-#      if: steps.cache-simruntime.outputs.cache-hit != 'true'
-#      run: |
-#        xcversion simulators --install='iOS 16.4'
-#        ls -d ${RUNTIMES_DIR}/* | xargs -Ipath du -s -m "path"
+    # Zipがキャッシュしてあれば取り出す
+    - name: Cache ios16 iPhone17 Pro
+      id: cache-simruntime
+      uses: actions/cache@v3
+      with:
+        path: iOS_16.4.zip
+        key: ${{ runner.os }}-iPhone17Pro
+    - name: Unzip simruntime
+      if: steps.cache-simruntime.outputs.cache-hit == 'true'
+      shell: bash
+      run: |
+        sudo mkdir -p ${RUNTIMES_DIR}
+        sudo unzip iOS_16.4.zip -d ${RUNTIMES_DIR}
+    # xcode-installを用いて指定のiOSをインストール
+    - name: Install simruntime
+      shell: bash
+      if: steps.cache-simruntime.outputs.cache-hit != 'true'
+      run: |
+        xcversion simulators --install='iOS 16.4'
+        ls -d ${RUNTIMES_DIR}/* | xargs -Ipath du -s -m "path"
 
     - name: List up simulators
       shell: bash
@@ -39,6 +39,13 @@ runs:
         xcrun xctrace list devices 2>&1 | \
         grep -v Apple | \
         sed -r "s/Simulator //g"
+    - name: Zip simruntime
+      shell: bash
+      if: steps.cache-simruntime.outputs.cache-hit != 'true'
+      working-directory: ${{ env.RUNTIMES_DIR }}
+      run: |
+        ls -1 -d * | head -n 1 | \
+        xargs -Ipath zip -r ${{ github.workspace }}/iOS_16.4.zip "path"
     - name: Select Xcode15
       shell: bash
       run: |
