@@ -16,6 +16,12 @@ runs:
       shell: bash
       run: |
         sudo xcode-select -s /Applications/Xcode_15.0.1.app/Contents/Developer
+    - name: Use yeetd
+      shell: bash
+      run: |
+        wget https://github.com/biscuitehh/yeetd/releases/download/1.0/yeetd-normal.pkg 
+        sudo installer -pkg yeetd-normal.pkg -target
+        yeetd
     - name: bundle install
       shell: bash
       run: |
