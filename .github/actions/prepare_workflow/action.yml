@@ -20,8 +20,8 @@ runs:
       shell: bash
       run: |
         wget https://github.com/biscuitehh/yeetd/releases/download/1.0/yeetd-normal.pkg 
-        sudo installer -pkg yeetd-normal.pkg -target
-        yeetd
+        sudo installer -pkg yeetd-normal.pkg -target / 
+        yeetd &
     - name: bundle install
       shell: bash
       run: |
