@@ -14,8 +14,8 @@ runs:
   using: "composite"
   steps:
     - run: |
+        echo "${{ inputs.apple-id-password }}" | xcrun altool --store-password-in-keychain-item "AC_PASSWORD" -u "${{ inputs.apple-id }}" -p
         brew install robotsandpencils/made/xcodes
         sudo xcodebuild -license accept
-        echo "${{ inputs.apple-id-password }}" | xcodes login "${{ inputs.apple-id }}"
         xcodes install "${{ inputs.version }}"
       shell: bash -xe {0}
