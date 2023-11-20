@@ -14,15 +14,7 @@ runs:
   using: "composite"
   steps:
     - run: |
-        xcrun altool --store-password-in-keychain-item "AC_PASSWORD" -u ${{ inputs.apple-id }} -p ${{ inputs.apple-id-password }}
-        # https://download.developer.apple.com/Developer_Tools/Xcode_15.1_beta_3/Xcode_15.1_beta_3.xip
-        curl -LO "https://download.developer.apple.com/Developer_Tools/Xcode_${{ inputs.version }}/Xcode_${{ inputs.version }}.xip"
-        # Extract Xcode
-        xip -x Xcode_${{ inputs.version }}.xip
-        # Move extracted Xcode app to Applications folder
-        sudo mv Xcode.app /Applications/Xcode-${{ inputs.version }}.app
-        # Switch to the installed Xcode
-        sudo xcode-select -s /Applications/Xcode-${{ inputs.version }}.app/Contents/Developer
-        # Verify the Xcode version
-        xcodebuild -version
+#        xcrun altool --store-password-in-keychain-item "AC_PASSWORD" -u ${{ inputs.apple-id }} -p ${{ inputs.apple-id-password }}
+        brew install robotsandpencils/made/xcodes
+        xcodes install "${{ inputs.version }}"
       shell: bash -xe {0}
