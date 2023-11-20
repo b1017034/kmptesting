@@ -16,6 +16,6 @@
 # skip_build(true)
 
 scheme("iosApp")
-device("iPhone 15 Pro")
-# device("iPhone15_Pro_?ios17.0.1")
+# device("iPhone 15 Pro")
+device("iPhone 14 Pro (16.4)")
 testplan("iosApp")

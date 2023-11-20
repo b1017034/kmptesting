@@ -12,19 +12,23 @@ runs:
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gems-
-#    - name: Select Xcode15
-#      shell: bash
-#      run: |
-#        sudo xcode-select -s /Applications/Xcode_15.0.1.app/Contents/Developer
-    - uses: maxim-lobanov/setup-xcode@v1
-      with:
-        xcode-version: '15.0-beta'
+    - name: Select Xcode15
+      shell: bash
+      run: |
+        sudo xcode-select -s /Applications/Xcode_15.0.1.app/Contents/Developer
 #    - name: Use yeetd
 #      shell: bash
 #      run: |
 #        wget https://github.com/biscuitehh/yeetd/releases/download/1.0/yeetd-normal.pkg
 #        sudo installer -pkg yeetd-normal.pkg -target /
 #        yeetd &
+    - name: Create Simulator
+      shell: bash
+      run: |
+        sudo mkdir -p /Library/Developer/CoreSimulator/Profiles/Runtimes
+        sudo ln -s /Applications/Xcode_14.3.1.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ 16.4.simruntime
+        # Create an iOS 16.4 simulator
+        xcrun simctl create "iPhone 14 Pro (16.4)" "com.apple.CoreSimulator.SimDeviceType.iPhone-14-Pro" "com.apple.CoreSimulator.SimRuntime.iOS-16-4"
     - name: bundle install
       shell: bash
       run: |
