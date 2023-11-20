@@ -13,7 +13,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: |
-        brew install robotsandpencils/made/xcodes
-        xcodes install "${{ inputs.version }}"
-      shell: bash -xe {0}
+    - name: Debug
+      if: ${{ always() }}
+      uses: mxschmitt/action-tmate@v3
