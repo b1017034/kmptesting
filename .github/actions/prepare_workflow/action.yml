@@ -15,7 +15,7 @@ runs:
     - name: Select Xcode15
       shell: bash
       run: |
-        sudo xcode-select -s /Applications/Xcode_15.0.1.app/Contents/Developer
+        sudo xcode-select -s /Applications/Xcode-15.1.0-Beta.3.app/Contents/Developer
 #    - name: Use yeetd
 #      shell: bash
 #      run: |
