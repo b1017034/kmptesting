@@ -12,50 +12,19 @@ runs:
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gems-
-    # Zipがキャッシュしてあれば取り出す
-    - name: Cache ios16 iPhone17 Pro
-      id: cache-simruntime
-      uses: actions/cache@v3
+#    - name: Select Xcode15
+#      shell: bash
+#      run: |
+#        sudo xcode-select -s /Applications/Xcode_15.0.1.app/Contents/Developer
+    - uses: maxim-lobanov/setup-xcode@v1
       with:
-        path: iOS_16.4.zip
-        key: ${{ runner.os }}-iPhone17Pro
-    - name: Unzip simruntime
-      if: steps.cache-simruntime.outputs.cache-hit == 'true'
-      shell: bash
-      run: |
-        sudo mkdir -p ${RUNTIMES_DIR}
-        sudo unzip iOS_16.4.zip -d ${RUNTIMES_DIR}
-    - name: Install simruntime
-      shell: bash
-      if: steps.cache-simruntime.outputs.cache-hit != 'true'
-      run: |
-        brew install xcodesorg/made/xcodes
-        xcodes runtimes install "iOS 17.0.1"
-        xcrun simctl create iPhone15_Pro_ios17.0.1 com.apple.CoreSimulator.SimDeviceType.iPhone-15-Pro com.apple.CoreSimulator.SimRuntime.iOS-17-0
-
-    - name: List up simulators
-      shell: bash
-      run: |
-        xcrun xctrace list devices 2>&1 | \
-        grep -v Apple | \
-        sed -r "s/Simulator //g"
-    - name: Zip simruntime
-      shell: bash
-      if: steps.cache-simruntime.outputs.cache-hit != 'true'
-      working-directory: ${{ env.RUNTIMES_DIR }}
-      run: |
-        ls -1 -d * | head -n 1 | \
-        xargs -Ipath zip -r ${{ github.workspace }}/iOS_16.4.zip "path"
-    - name: Select Xcode15
-      shell: bash
-      run: |
-        sudo xcode-select -s /Applications/Xcode_15.0.1.app/Contents/Developer
-    - name: Use yeetd
-      shell: bash
-      run: |
-        wget https://github.com/biscuitehh/yeetd/releases/download/1.0/yeetd-normal.pkg 
-        sudo installer -pkg yeetd-normal.pkg -target / 
-        yeetd &
+        xcode-version: '15.0-beta'
+#    - name: Use yeetd
+#      shell: bash
+#      run: |
+#        wget https://github.com/biscuitehh/yeetd/releases/download/1.0/yeetd-normal.pkg
+#        sudo installer -pkg yeetd-normal.pkg -target /
+#        yeetd &
     - name: bundle install
       shell: bash
       run: |
