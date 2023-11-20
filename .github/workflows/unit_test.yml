@@ -32,7 +32,7 @@ jobs:
       - name: Install Xcode
         uses: ./.github/actions/install_xcode
         with:
-          version: "15.1.0-Beta.3"
+          version: "15.1_beta_3"
           apple-id: ${{ secrets.APPLE_DEVELOPER_EMAIL }}
           apple-id-password: ${{ secrets.APPLE_SPECIFIC_PASSWORD }}
 

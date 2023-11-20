@@ -15,6 +15,7 @@ runs:
   steps:
     - run: |
         xcrun altool --store-password-in-keychain-item "AC_PASSWORD" -u ${{ inputs.apple-id }} -p ${{ inputs.apple-id-password }}
+        # https://download.developer.apple.com/Developer_Tools/Xcode_15.1_beta_3/Xcode_15.1_beta_3.xip
         curl -LO "https://download.developer.apple.com/Developer_Tools/Xcode_${{ inputs.version }}/Xcode_${{ inputs.version }}.xip"
         # Extract Xcode
         xip -x Xcode_${{ inputs.version }}.xip
