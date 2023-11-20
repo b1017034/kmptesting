@@ -1,0 +1,21 @@
+name: 'Install Xcode'
+description: 'Installs a specified version of Xcode'
+inputs:
+  version:
+    description: 'Version of Xcode to install'
+    required: true
+  apple-id:
+    description: 'Apple Developer Account Id'
+    required: true
+  apple-id-password:
+    description: 'Apple Developer Account Password'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        brew install robotsandpencils/made/xcodes
+        sudo xcodebuild -license accept
+        echo "${{ inputs.apple-id-password }}" | xcodes login "${{ inputs.apple-id }}"
+        xcodes install "${{ inputs.version }}"
+      shell: bash -xe {0}
