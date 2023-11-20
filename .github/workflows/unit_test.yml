@@ -13,8 +13,8 @@ on:
 env:
   DEVELOPER_DIR: "/Applications/Xcode_15.0.1.app/Contents/Developer"
   RUNTIMES_DIR: "/Library/Developer/CoreSimulator/Profiles/Runtimes"
-  APPLE_SPECIFIC_PASSWORD: ${{ secrets.AC_APPLE_SPECIFIC_PASSWORD }}
-  APPLE_DEVELOPER_EMAIL: ${{ secrets.AC_APPLE_DEVELOPER_EMAIL }}
+  APPLE_SPECIFIC_PASSWORD: ${{ secrets.APPLE_SPECIFIC_PASSWORD }}
+  APPLE_DEVELOPER_EMAIL: ${{ secrets.APPLE_DEVELOPER_EMAIL }}
 
 jobs:
   unit_testing:
