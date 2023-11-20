@@ -26,16 +26,18 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-
-      - name: prepare workflow
-        uses: ./.github/actions/prepare_workflow
+        with:
+          fetch-depth: 0
 
       - name: Install Xcode
-        uses: ./.github/actions/install-xcode
+        uses: ./.github/actions/install_xcode
         with:
           version: "15.1 Beta 3"
           apple-id: ${{ secrets.AC_APPLE_DEVELOPER_EMAIL }}
           apple-id-password: ${{ secrets.AC_APPLE_SPECIFIC_PASSWORD }}
+
+      - name: prepare workflow
+        uses: ./.github/actions/prepare_workflow
 
       - name: prepare gcs
         uses: ./.github/actions/prepare_gcs
