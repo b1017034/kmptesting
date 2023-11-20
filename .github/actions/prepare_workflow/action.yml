@@ -25,14 +25,13 @@ runs:
       run: |
         sudo mkdir -p ${RUNTIMES_DIR}
         sudo unzip iOS_16.4.zip -d ${RUNTIMES_DIR}
-    # xcode-installを用いて指定のiOSをインストール
     - name: Install simruntime
       shell: bash
       if: steps.cache-simruntime.outputs.cache-hit != 'true'
       run: |
-        gem install xcode-install
-        xcversion simulators --install='iOS 16.4'
-        ls -d ${RUNTIMES_DIR}/* | xargs -Ipath du -s -m "path"
+        brew install xcodesorg/made/xcodes
+        xcodes runtimes install "iOS 17.0.1"
+        xcrun simctl create iPhone15_Pro_ios17.0.1 com.apple.CoreSimulator.SimDeviceType.iPhone-15-Pro com.apple.CoreSimulator.SimRuntime.iOS-17-0
 
     - name: List up simulators
       shell: bash
