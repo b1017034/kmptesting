@@ -8,7 +8,7 @@ runs:
     id: gcs
     with:
       token_format: "access_token"
-      workload_identity_provider: 'projects/308004819512/locations/global/workloadIdentityPools/githubactions/providers/githubaction'
+      workload_identity_provider: 'projects/308004819512/locations/global/workloadIdentityPools/githubactions/providers/github'
       service_account: 'githubaction@stellar-polymer-308508.iam.gserviceaccount.com'
 #  - uses: 'google-github-actions/upload-cloud-storage@v1'
 #    with:
