@@ -29,13 +29,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Xcode
-        uses: ./.github/actions/install_xcode
-        with:
-          version: "15.1 Beta 3"
-          apple-id: ${{ secrets.APPLE_DEVELOPER_EMAIL }}
-          apple-id-password: ${{ secrets.APPLE_SPECIFIC_PASSWORD }}
-
       - name: prepare workflow
         uses: ./.github/actions/prepare_workflow
 
