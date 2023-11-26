@@ -9,10 +9,10 @@ runs:
     with:
       workload_identity_provider: 'principal://iam.googleapis.com/projects/308004819512/locations/global/workloadIdentityPools/githubactions/subject/b1017034/kmptesting'
       service_account: 'githubaction@stellar-polymer-308508.iam.gserviceaccount.com'
-  - uses: 'google-github-actions/upload-cloud-storage@v1'
-    with:
-      path: 'DangerFile'
-      destination: 'bucket-name/file'
+#  - uses: 'google-github-actions/upload-cloud-storage@v1'
+#    with:
+#      path: 'DangerFile'
+#      destination: 'bucket-name/file'
   - name: cat credentials
     shell: bash
     run: |
