@@ -16,4 +16,4 @@ runs:
   - name: cat credentials
     shell: bash
     run: |
-      cat ${{ outputs.gcs.credentials_file_path }}
+      cat ${{ steps.gcs.outputs.credentials_file_path }}
