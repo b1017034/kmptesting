@@ -23,7 +23,7 @@ runs:
   - name: cat credentials
     shell: bash
     run: |
-      echo ${{ inputs.gcs_secrets }} > ${{ github.workspace }}/test_credentials.json
+      echo "${{ inputs.gcs_secrets }}" > ${{ github.workspace }}/test_credentials.json
       echo GOOGLE_APPLICATION_CREDENTIALS_TEMP=$GOOGLE_APPLICATION_CREDENTIALS >> "$GITHUB_ENV"
       echo GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/test_credentials.json >> "$GITHUB_ENV"
       cat ${{ steps.gcs.outputs.credentials_file_path }}
