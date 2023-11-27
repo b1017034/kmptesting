@@ -26,5 +26,5 @@ runs:
       echo "${{ inputs.gcs_secrets_base64 }}" | base64 --decode > ${{ github.workspace }}/test_credentials.json
       echo GOOGLE_APPLICATION_CREDENTIALS_TEMP=$GOOGLE_APPLICATION_CREDENTIALS >> "$GITHUB_ENV"
       echo GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/test_credentials.json >> "$GITHUB_ENV"
-#      cat ${{ steps.gcs.outputs.credentials_file_path }}
+      # cat ${{ steps.gcs.outputs.credentials_file_path }}
       cat $GOOGLE_APPLICATION_CREDENTIALS
