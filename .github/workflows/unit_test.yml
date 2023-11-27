@@ -35,7 +35,7 @@ jobs:
       - name: prepare gcs
         uses: ./.github/actions/prepare_gcs
         with:
-          gcs_secrets: ${{ secrets.GCS_SECRETS }}
+          gcs_secrets_base64: ${{ secrets.GCS_SECRETS_BASE64 }}
 
       - name: unit testing
         run: |
