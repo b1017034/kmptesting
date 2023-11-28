@@ -14,6 +14,7 @@ jobs:
           echo "sha: " ${{ github.sha }}
           echo "ref_name: " ${{ github.ref_name }}
           echo "pull request head sha"
+          echo ${{ github.event.pull_request.head.ref }}
           echo ${{ github.event.pull_request.head.sha }}
 
       - name: checkout
