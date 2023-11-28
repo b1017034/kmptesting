@@ -1,0 +1,19 @@
+name: branch_test
+on:
+  pull_request_target:
+  push:
+      branches:
+      - master
+jobs:
+  branch_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: find branch name
+        run: | 
+          echo "sha: " ${{ github.sha }}
+          echo "ref_name: " ${{ github.ref_name }}
+          echo "pull request head sha"
+          echo ${{ github.event.pull_request.head.sha }}
+
+      - name: checkout
+        uses: actions/checkout@v4
