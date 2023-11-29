@@ -37,7 +37,7 @@ jobs:
 
       - name: bump
         if: |
-          github.event.inputs.bump &&
+          github.event.inputs.bump
           steps.check_ref_name.outputs.is_version
         run: |
           echo "bump"
