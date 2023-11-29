@@ -6,9 +6,6 @@ on:
         description: "commit hash"
         required: true
         type: string
-  push:
-      branches:
-      - "*.*.*"
 jobs:
   chery_pick:
     runs-on: ubuntu-latest
@@ -20,5 +17,5 @@ jobs:
 
       - name: chery pick
         run: |
-          sh("git", "cherry-pick", "-m", "1", "${{ inputs.commit_hash }}")
-          sh("git", "push", "origin", "${{ github.head_ref }}")
+          git cherry-pick -m 1 ${{ inputs.commit_hash }}
+          git push origin ${{ github.head_ref }}
