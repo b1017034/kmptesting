@@ -1,24 +1,24 @@
-name: branch_test
+name: chery pick
 on:
   workflow_dispatch:
     inputs:
-      bump:
-        description: "bump"
+      commit_hash:
+        description: "commit hash"
         required: true
-        default: false
-        type: boolean
-  pull_request:
+        type: string
   push:
       branches:
       - "*.*.*"
 jobs:
-  branch_test:
+  chery_pick:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: bump
-        if: github.event_name == 'push'
+      - name: chery pick
         run: |
-          echo "bump"
+          sh("git", "cherry-pick", "-m", "1", "${{ inputs.commit_hash }}")
+          sh("git", "push", "origin", "${{ github.head_ref }}")
