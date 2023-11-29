@@ -1,10 +1,16 @@
 name: branch_test
 on:
   workflow_dispatch:
-  pull_request_target:
+    inputs:
+      bump:
+        description: "bump"
+        required: true
+        default: false
+        type: boolean
+  pull_request:
   push:
       branches:
-      - master
+      - develop
 jobs:
   branch_test:
     runs-on: ubuntu-latest
@@ -19,3 +25,19 @@ jobs:
 
       - name: checkout
         uses: actions/checkout@v4
+
+      - name: check ref_name
+        id: check_ref_name
+        run: |
+          if [[ ${{ github.ref_name }} =~ ^[0-9]*\.[0-9]*\.[0-9]* ]]; then
+            echo "is_version=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_version=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: bump
+        if: |
+          github.event.inputs.bump &&
+          steps.check_ref_name.outputs.is_version
+        run: |
+          echo "bump"
