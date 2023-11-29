@@ -18,18 +18,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: check ref_name
-        id: check_ref_name
-        run: |
-          if [[ ${{ github.ref_name }} =~ ^[0-9]*\.[0-9]*\.[0-9]* ]]; then
-            echo "is_version=true" >> $GITHUB_OUTPUT
-          else
-            echo "is_version=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: bump
-        if: >-
-          github.event.inputs.bump == 'true' ||
-          steps.check_ref_name.outputs.is_version == 'true'
+        if: github.event_name == 'push'
         run: |
           echo "bump"
