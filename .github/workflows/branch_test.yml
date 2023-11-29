@@ -30,6 +30,6 @@ jobs:
       - name: bump
         if: >-
           github.event.inputs.bump == 'true' ||
-          steps.check_ref_name.outputs.is_version
+          steps.check_ref_name.outputs.is_version == 'true'
         run: |
           echo "bump"
