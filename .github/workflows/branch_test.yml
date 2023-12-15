@@ -28,7 +28,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ steps.checkout_branch.outputs.sha }}
           fetch-depth: 0
 
       - name: chery pick
