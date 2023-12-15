@@ -6,13 +6,29 @@ on:
         description: "commit hash"
         required: true
         type: string
+  pull_request_target:
+
 jobs:
   chery_pick:
     runs-on: ubuntu-latest
     steps:
+      - name: set checkout branch
+        id: checkout_branch
+        run: |
+          ## pull_request_targetの場合は、github.shaがbaseブランチのshaになっているため、
+          ## pull_request.head.shaを取得する
+          echo "${{ github.head_ref }}"
+          echo "${{ github.head_sha }}"
+          if [ "${{ github.event_name }}" == "pull_request_target" ]; then
+            echo "sha = ${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
+          else
+            echo "sha = ${{ github.sha }}" >> $GITHUB_OUTPUT
+          fi
+
       - name: checkout
         uses: actions/checkout@v4
         with:
+          ref: ${{ steps.checkout_branch.outputs.sha }}
           fetch-depth: 0
 
       - name: chery pick
