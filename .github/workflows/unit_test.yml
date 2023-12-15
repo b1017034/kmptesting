@@ -8,7 +8,7 @@ on:
         required: true
         default: false
         type: boolean
-#  pull_request_target:
+  pull_request_target:
 
 env:
   DEVELOPER_DIR: "/Applications/Xcode_15.0.1.app/Contents/Developer"
@@ -27,7 +27,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: prepare workflow
         uses: ./.github/actions/prepare_workflow

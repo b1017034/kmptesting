@@ -6,7 +6,7 @@ on:
         description: "commit hash"
         required: true
         type: string
-  pull_request_target:
+#  pull_request_target:
 
 jobs:
   chery_pick:
