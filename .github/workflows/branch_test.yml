@@ -13,16 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v4
-        if: ${{ github.event_name != 'pull_request_target' }}
-        with:
-          fetch-depth: 0
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request_target" ]; then
+            echo "sha=${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
+          else
+            echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+          fi
 
       - name: checkout
         uses: actions/checkout@v4
-        if: ${{ github.event_name == 'pull_request_target' }}
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ steps.branch.output.sha }}
           fetch-depth: 0
 
       - name: chery pick
