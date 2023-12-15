@@ -1,0 +1,32 @@
+name: Prepare Google Cloud Service
+description:  Prepare Google Cloud Service
+
+inputs:
+  gcs_secrets_base64:
+    description: gcs secrets
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: 'Authenticate to Google Cloud'
+    uses: 'google-github-actions/auth@v1'
+    id: gcs
+    with:
+      token_format: "access_token"
+      workload_identity_provider: 'projects/308004819512/locations/global/workloadIdentityPools/githubactions/providers/github'
+      service_account: 'githubaction@stellar-polymer-308508.iam.gserviceaccount.com'
+#  - uses: 'google-github-actions/upload-cloud-storage@v1'
+#    with:
+#      path: 'DangerFile'
+#      destination: 'bucket-name/file'
+  - name: cat credentials
+    shell: bash
+    run: |
+      echo "${{ inputs.gcs_secrets_base64 }}" | base64 --decode > ${{ github.workspace }}/test_credentials.json
+      echo GOOGLE_APPLICATION_CREDENTIALS_TEMP=$GOOGLE_APPLICATION_CREDENTIALS >> "$GITHUB_ENV"
+      echo GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/test_credentials.json >> "$GITHUB_ENV"
+  - name: check credential
+    shell: bash
+    run: |
+      echo GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS_TEMP >> "$GITHUB_ENV"

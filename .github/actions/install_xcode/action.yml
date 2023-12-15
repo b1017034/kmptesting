@@ -1,0 +1,19 @@
+name: 'Install Xcode'
+description: 'Installs a specified version of Xcode'
+inputs:
+  version:
+    description: 'Version of Xcode to install'
+    required: true
+  apple-id:
+    description: 'Apple Developer Account Id'
+    required: true
+  apple-id-password:
+    description: 'Apple Developer Account Password'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      with:
+        limit-access-to-actor: false
