@@ -12,10 +12,10 @@ runs:
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gems-
-#    - name: Select Xcode15
-#      shell: bash
-#      run: |
-#        sudo xcode-select -s /Applications/Xcode_15.0.1.app/Contents/Developer
+    - name: Select Xcode15
+      shell: bash
+      run: |
+        sudo xcode-select -s /Applications/Xcode_15.1.app
 #    - name: Use yeetd
 #      shell: bash
 #      run: |
