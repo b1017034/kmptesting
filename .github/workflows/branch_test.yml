@@ -12,22 +12,5 @@ jobs:
   chery_pick:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        id: branch
-        run: |
-          if [ "${{ github.event_name }}" == "pull_request_target" ]; then
-            echo "sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "sha=${{ github.sha }}" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ steps.branch.outputs.sha }}
-          fetch-depth: 0
-
-      - name: chery pick
-        run: |
-          git cherry-pick -m 1 ${{ inputs.commit_hash }}
-          git push origin ${{ github.head_ref }}
+      - name: echo xcode_version
+        run: echo "### Build with Xcode ${{ inputs.commit_hash }} :hammer_and_pick:" >> $GITHUB_STEP_SUMMARY
